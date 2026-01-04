@@ -15,7 +15,7 @@
         .btn { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-size: 15px; width: 100%; margin-top: 10px; transition: 0.3s; font-weight: bold; }
         .btn-secondary { background: #555; }
         .screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 100; justify-content: center; align-items: center; flex-direction: column; }
-        #word-display { font-size: 60px; font-weight: bold; margin: 40px 0; color: var(--accent); padding: 0 20px; text-align: center; }
+        #word-display { font-size: 55px; font-weight: bold; margin: 40px 0; color: var(--accent); padding: 0 20px; text-align: center; max-width: 90%; }
         #timer-container { width: 70%; height: 12px; background: #333; border-radius: 6px; margin: 20px auto; overflow: hidden; }
         #timer-bar { width: 100%; height: 100%; background: var(--success); transition: width 1s linear; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
@@ -42,7 +42,7 @@
 
 <div id="edit-screen" class="screen">
     <h2 id="edit-title">Modifier la Série</h2>
-    <div class="scroll-area"><table id="edit-table"><thead><tr><th>NL</th><th>FR</th><th>Action</th></tr></thead><tbody id="edit-body"></tbody></table></div>
+    <div class="scroll-area"><table id="edit-table"><thead><tr><th>NL</th><th>FR</th></tr></thead><tbody id="edit-body"></tbody></table></div>
     <button class="btn" onclick="sauvegarderEtDemarrer()" style="width:300px; margin-top:20px;">🚀 Enregistrer et Commencer</button>
 </div>
 
@@ -61,14 +61,23 @@
 
 <script>
 const listeVocabulaire = [
-    // --- GASTRONOMIE ---
-    {t:13, nl:"de maaltijden", fr:"les repas"}, {t:13, nl:"eten / vreten", fr:"manger / bouffer"}, {t:13, nl:"drinken", fr:"boire"}, {t:13, nl:"proeven", fr:"goûter"}, {t:13, nl:"fijnproeven", fr:"déguster"}, {t:13, nl:"het ontbijt", fr:"le petit-déjeuner"}, {t:13, nl:"de brunch", fr:"le brunch"}, {t:13, nl:"middagmaal / lunch", fr:"le déjeuner / le lunch"}, {t:13, nl:"het avondmaal", fr:"le dîner / le souper (BE)"}, {t:13, nl:"het aperitief", fr:"l'apéritif (m.)"}, {t:13, nl:"de hapjes", fr:"les amuse-bouche / zakouskis"}, {t:13, nl:"het voorgerecht", fr:"l'entrée (f.)"}, {t:13, nl:"de soep", fr:"la soupe / le potage"}, {t:13, nl:"het (hoofd)gerecht", fr:"le plat (principal)"}, {t:13, nl:"het dessert", fr:"le dessert"}, {t:13, nl:"koken", fr:"faire la cuisine"}, {t:13, nl:"de maaltijd klaarmaken", fr:"préparer le repas"}, {t:13, nl:"een recept", fr:"une recette"}, {t:13, nl:"fruit/groenten afspoelen", fr:"rincer les fruits et légumes"}, {t:13, nl:"schillen", fr:"éplucher"}, {t:13, nl:"snijden / hakken", fr:"couper (en morceaux)"}, {t:13, nl:"fijnhakken", fr:"émincer"}, {t:13, nl:"biefstuk bakken", fr:"cuire un steak"}, {t:13, nl:"mengen", fr:"mélanger"}, {t:13, nl:"roeren", fr:"remuer"}, {t:13, nl:"alleseter", fr:"omnivore"}, {t:13, nl:"flexitariër", fr:"flexitarien"}, {t:13, nl:"vegetariër", fr:"végétarien"}, {t:13, nl:"veganist", fr:"végan / végétalien"}, {t:13, nl:"glutenvrij dieet", fr:"le régime sans gluten"}, {t:13, nl:"het bestek", fr:"les couverts"}, {t:13, nl:"een mes", fr:"un couteau"}, {t:13, nl:"een vork", fr:"une fourchette"}, {t:13, nl:"een lepel", fr:"une cuillère"}, {t:13, nl:"een bord", fr:"une assiette"}, {t:13, nl:"een kom", fr:"un bol"}, {t:13, nl:"kookpot", fr:"une casserole"}, {t:13, nl:"pan", fr:"une poêle"}, {t:13, nl:"citroen", fr:"le citron"}, {t:13, nl:"appel", fr:"la pomme"}, {t:13, nl:"wortel", fr:"une carotte"}, {t:13, nl:"tomaat", fr:"une tomate"}, {t:13, nl:"look", fr:"l'ail (m.)"},
+    // --- THÈME 13: LA GASTRONOMIE ---
+    {t:13, nl:"de maaltijden", fr:"les repas"}, {t:13, nl:"eten / vreten", fr:"manger / bouffer"}, {t:13, nl:"drinken", fr:"boire"}, {t:13, nl:"proeven", fr:"goûter"}, {t:13, nl:"fijnproeven", fr:"déguster"}, {t:13, nl:"het ontbijt", fr:"le petit-déjeuner"}, {t:13, nl:"de brunch", fr:"le brunch"}, {t:13, nl:"middagmaal / lunch", fr:"le déjeuner / le lunch"}, {t:13, nl:"het avondmaal", fr:"le dîner / le souper (BE)"}, {t:13, nl:"het aperitief", fr:"l'apéritif (m.)"}, {t:13, nl:"de hapjes", fr:"les amuse-bouche / zakouskis"}, {t:13, nl:"het voorgerecht", fr:"l'entrée (f.)"}, {t:13, nl:"de soep", fr:"la soupe / le potage"}, {t:13, nl:"het (hoofd)gerecht", fr:"le plat (principal)"}, {t:13, nl:"het dessert", fr:"le dessert"}, {t:13, nl:"koken", fr:"faire la cuisine"}, {t:13, nl:"een recept", fr:"une recette"}, {t:13, nl:"schillen", fr:"éplucher"}, {t:13, nl:"snijden / hakken", fr:"couper (en morceaux)"}, {t:13, nl:"mengen", fr:"mélanger"}, {t:13, nl:"alleseter", fr:"omnivore"}, {t:13, nl:"vegetariër", fr:"végétarien(ne)"}, {t:13, nl:"veganist", fr:"végan(e) / végétalien(ne)"}, {t:13, nl:"het bestek", fr:"les couverts"}, {t:13, nl:"een mes", fr:"un couteau"}, {t:13, nl:"een vork", fr:"une fourchette"}, {t:13, nl:"een lepel", fr:"une cuillère"}, {t:13, nl:"een bord", fr:"une assiette"}, {t:13, nl:"kookpot / pan", fr:"une casserole / une poêle"},
+    // Groenten
+    {t:13, nl:"een wortel", fr:"une carotte"}, {t:13, nl:"een paprika", fr:"un poivron"}, {t:13, nl:"een aubergine", fr:"une aubergine"}, {t:13, nl:"een tomaat", fr:"une tomate"}, {t:13, nl:"een courgette", fr:"une courgette"}, {t:13, nl:"een (groene) boon", fr:"un haricot (vert)"}, {t:13, nl:"een erwt", fr:"un petit pois"}, {t:13, nl:"een aardappel", fr:"une pomme de terre"}, {t:13, nl:"een zoete aardappel", fr:"une patate douce"}, {t:13, nl:"een (rode) biet", fr:"une betterave (rouge)"}, {t:13, nl:"een artisjok", fr:"un artichaut"}, {t:13, nl:"spinazie", fr:"des épinards (m.)"}, {t:13, nl:"een bloemkool", fr:"un chou-fleur"}, {t:13, nl:"een (rode) kool", fr:"un chou (rouge)"}, {t:13, nl:"een broccoli", fr:"un brocoli"}, {t:13, nl:"een prei", fr:"un poireau"}, {t:13, nl:"een selder", fr:"un céleri"}, {t:13, nl:"een komkommer", fr:"un concombre"}, {t:13, nl:"een kropsla", fr:"une laitue"}, {t:13, nl:"een asperge", fr:"une asperge"}, {t:13, nl:"een ui", fr:"un oignon"}, {t:13, nl:"look", fr:"l'ail (m.)"}, {t:13, nl:"een avocado", fr:"un avocat"}, {t:13, nl:"een radijs", fr:"un radis"}, {t:13, nl:"witloof", fr:"une endive / un chicon (BE)"}, {t:13, nl:"venkel", fr:"un fenouil"}, {t:13, nl:"pompoen", fr:"un potiron / potimarron"}, {t:13, nl:"pastinaak", fr:"un panais"}, {t:13, nl:"een paddenstoel", fr:"un champignon"}, {t:13, nl:"een raap", fr:"un navet"},
+    // Kruiden
+    {t:13, nl:"zout", fr:"le sel"}, {t:13, nl:"peper", fr:"le poivre"}, {t:13, nl:"Provençaalse kruiden", fr:"les herbes de Provence"}, {t:13, nl:"tijm", fr:"le thym"}, {t:13, nl:"oregano", fr:"l'origan (m.)"}, {t:13, nl:"laurier", fr:"le laurier"}, {t:13, nl:"kaneel", fr:"la cannelle"}, {t:13, nl:"chilipeper", fr:"le piment"},
 
-    // --- L'ART ET LA CULTURE ---
-    {t:14, nl:"de lezer", fr:"le lecteur"}, {t:14, nl:"het boek", fr:"le bouquin / le livre"}, {t:14, nl:"pocketboek", fr:"le livre de poche"}, {t:14, nl:"de roman", fr:"le roman"}, {t:14, nl:"kortverhaal", fr:"la nouvelle"}, {t:14, nl:"stripverhaal", fr:"la bande dessinée"}, {t:14, nl:"hoofdstuk", fr:"le chapitre"}, {t:14, nl:"held(in)", fr:"le héros / l'héroïne"}, {t:14, nl:"hoofdpersonage", fr:"le protagoniste"}, {t:14, nl:"schrijver", fr:"un écrivain / auteur"}, {t:14, nl:"boekhandel", fr:"une librairie"}, {t:14, nl:"uitgeverij", fr:"une maison d'édition"}, {t:14, nl:"intrige / plot", fr:"l'intrigue (f.)"}, {t:14, nl:"ontknoping", fr:"le dénouement"}, {t:14, nl:"foto", fr:"la photo"}, {t:14, nl:"fotograaf", fr:"le photographe"}, {t:14, nl:"camera", fr:"la caméra"}, {t:14, nl:"voorstelling", fr:"une représentation"}, {t:14, nl:"opera", fr:"l'opéra"}, {t:14, nl:"musical", fr:"une comédie musicale"}, {t:14, nl:"festival", fr:"un festival"}, {t:14, nl:"toneelstuk", fr:"la pièce de théâtre"}, {t:14, nl:"acteur", fr:"un comédien / acteur"}, {t:14, nl:"hoofdrol", fr:"le rôle principal"}, {t:14, nl:"het podium", fr:"la scène"}, {t:14, nl:"decor", fr:"le decor"}, {t:14, nl:"coulissen", fr:"les coulisses"}, {t:14, nl:"regisseur", fr:"un réalisateur"}, {t:14, nl:"scenario", fr:"le scénario"}, {t:14, nl:"ondertiteling", fr:"le sous-titrage"}, {t:14, nl:"tekenfilm", fr:"le dessin-animé"}, {t:14, nl:"animatiefilm", fr:"le film d'animation"}, {t:14, nl:"thriller", fr:"le thriller"}, {t:14, nl:"blockbuster", fr:"le film à succès"}, {t:14, nl:"schilder", fr:"un peintre"}, {t:14, nl:"beeldhouwer", fr:"un sculpteur"}, {t:14, nl:"architectuur", fr:"l'architecture (f.)"},
+    // --- THÈME 14: L'ART ET LA CULTURE ---
+    {t:14, nl:"de kunst", fr:"l'art (m.)"}, {t:14, nl:"een kunstenaar", fr:"un(e) artiste"}, {t:14, nl:"creëren", fr:"créer"}, {t:14, nl:"de creativiteit", fr:"la créativité"}, {t:14, nl:"creatief zijn", fr:"être créatif"}, {t:14, nl:"een schilder", fr:"un peintre"}, {t:14, nl:"schilderen", fr:"peindre"}, {t:14, nl:"een schilderij / doek", fr:"une peinture / un tableau / une toile"}, {t:14, nl:"een beeldhouwer", fr:"un sculpteur"}, {t:14, nl:"beeldhouwen", fr:"sculpter"}, {t:14, nl:"een beeldhouwwerk", fr:"une sculpture"}, {t:14, nl:"een beeldend kunstenaar", fr:"un artiste plasticien"}, {t:14, nl:"een (interieur)architect", fr:"un architecte (d’intérieur)"}, {t:14, nl:"de architectuur", fr:"l'architecture (f.)"}, {t:14, nl:"een modeontwerper", fr:"un créateur de mode / couturier"}, {t:14, nl:"een designer", fr:"un designer"}, {t:14, nl:"een grafische vormgever", fr:"un graphiste"}, {t:14, nl:"een model", fr:"un modèle"}, {t:14, nl:"poseren voor een kunstenaar", fr:"poser pour un artiste"}, {t:14, nl:"een muze (inspiratie)", fr:"une muse"}, {t:14, nl:"een tentoonstelling", fr:"une expo(sition)"}, {t:14, nl:"tentoonstellen", fr:"exposer"}, {t:14, nl:"tentoongesteld worden", fr:"être exposé"}, {t:14, nl:"naar een vernissage gaan", fr:"aller à un vernissage"}, {t:14, nl:"een verzamelaar", fr:"un collectionneur, une collectionneuse"}, {t:14, nl:"een verzameling / verzamelen", fr:"une collection / collectionner"}, {t:14, nl:"kunstgeschiedenis", fr:"l'histoire de l'art"}, {t:14, nl:"een museum(zaal)", fr:"un musée / une salle de musée"}, {t:14, nl:"een kunstgalerij", fr:"une galerie d’art"}, {t:14, nl:"een kunstwerk", fr:"une œuvre (d’art)"}, {t:14, nl:"een meesterwerk", fr:"un chef-d’œuvre"}, {t:14, nl:"een schets / schetsen", fr:"un croquis / une esquisse - esquisser"}, {t:14, nl:"een stilleven", fr:"une nature morte"}, {t:14, nl:"een landschap", fr:"un paysage"}, {t:14, nl:"een portret", fr:"un portrait"}, {t:14, nl:"abstracte ↔ figuratieve kunst", fr:"l'art abstrait ↔ figuratif"}, {t:14, nl:"een olieverfschilderij", fr:"une peinture à l'huile"}, {t:14, nl:"een aquarel", fr:"une aquarelle"}, {t:14, nl:"een standbeeld", fr:"une statue"},
+    // Smaak uiten
+    {t:14, nl:"klappen / het applaus", fr:"applaudir / les applaudissements"}, {t:14, nl:"gecharmeerd zijn door", fr:"être sous le charme de"}, {t:14, nl:"waarderen", fr:"apprécier"}, {t:14, nl:"cultuur opsnuiven / geest verruimen", fr:"se cultiver / s’ouvrir l’esprit"}, {t:14, nl:"uitfluiten / uitjouwen", fr:"siffler / huer"}, {t:14, nl:"de zaal verlaten", fr:"quitter la salle"}, {t:14, nl:"een hekel hebben aan", fr:"détester"},
+    // Uit PDF
+    {t:14, nl:"de lezer", fr:"le lecteur, la lectrice"}, {t:14, nl:"het boek (pop.)", fr:"le bouquin"}, {t:14, nl:"stripverhaal", fr:"la bande dessinée (BD)"}, {t:14, nl:"een regisseur", fr:"un cinéaste / réalisateur"}, {t:14, nl:"het erfgoed", fr:"le patrimoine"}, {t:14, nl:"het is ouderwets", fr:"c'est ringard / démodé"},
 
-    // --- VOYAGE EN FRANCE ---
-    {t:15, nl:"Frankrijk", fr:"l'Hexagone (m.)"}, {t:15, nl:"streek / regio", fr:"la région"}, {t:15, nl:"departement", fr:"le département"}, {t:15, nl:"platteland", fr:"la campagne"}, {t:15, nl:"de grens", fr:"la frontière"}, {t:15, nl:"de toerist", fr:"le touriste"}, {t:15, nl:"bureau voor toerisme", fr:"l'office du tourisme"}, {t:15, nl:"zich informeren", fr:"se renseigner"}, {t:15, nl:"verblijf organiseren", fr:"organiser un séjour"}, {t:15, nl:"georganiseerde reis", fr:"un voyage organisé"}, {t:15, nl:"route / traject", fr:"un itinéraire"}, {t:15, nl:"rondreis", fr:"un circuit"}, {t:15, nl:"reservatie maken", fr:"faire une réservation"}, {t:15, nl:"accommodatie", fr:"l'hébergement (m.)"}, {t:15, nl:"lokale specialiteiten", fr:"les spécialités locales"}, {t:15, nl:"historisch monument", fr:"le monument historique"}, {t:15, nl:"kasteel", fr:"le château"}, {t:15, nl:"wijngaard", fr:"le vignoble"}, {t:15, nl:"cultureel erfgoed", fr:"le patrimoine culturel"}, {t:15, nl:"bekend / beroemd", fr:"connu / célèbre"}, {t:15, nl:"trekpleister", fr:"le pôle d'attraction"}, {t:15, nl:"klimaat", fr:"le climat"}, {t:15, nl:"bewolkte lucht", fr:"le ciel nuageux"}, {t:15, nl:"zonnig", fr:"ensoleillé"}, {t:15, nl:"regenbui", fr:"une averse"}, {t:15, nl:"opklaringen", fr:"les éclaircies"}, {t:15, nl:"sneeuw", fr:"la neige"}, {t:15, nl:"dicht bij", fr:"(tout) près de"}, {t:15, nl:"in de omgeving van", fr:"dans les alentours de"}, {t:15, nl:"landschap", fr:"le paysage"}, {t:15, nl:"het zicht", fr:"la vue"}, {t:15, nl:"plantengroei", fr:"la végétation"}, {t:15, nl:"bos", fr:"la forêt"}, {t:15, nl:"pijnbomen", fr:"les pins"}, {t:15, nl:"vallei", fr:"une vallée"}, {t:15, nl:"heuvel", fr:"une colline"}, {t:15, nl:"berg", fr:"une montagne"}, {t:15, nl:"meer", fr:"un lac"}, {t:15, nl:"stroom", fr:"un fleuve"}, {t:15, nl:"oceaan", fr:"l'océan"}, {t:15, nl:"kust", fr:"la côte / le littoral"}, {t:15, nl:"klif / rotswand", fr:"la falaise"}, {t:15, nl:"pittoresk", fr:"pittoresque"}
+    // --- THÈME 15: VOYAGE EN FRANCE ---
+    {t:15, nl:"Frankrijk", fr:"l'Hexagone (m.)"}, {t:15, nl:"streek / regio", fr:"la région"}, {t:15, nl:"departement", fr:"le département"}, {t:15, nl:"platteland", fr:"la campagne"}, {t:15, nl:"de grens", fr:"la frontière"}, {t:15, nl:"de toerist", fr:"le touriste"}, {t:15, nl:"bureau voor toerisme", fr:"l'office du tourisme"}, {t:15, nl:"zich informeren", fr:"se renseigner"}, {t:15, nl:"verblijf organiseren", fr:"organiser un séjour"}, {t:15, nl:"georganiseerde reis", fr:"un voyage organisé"}, {t:15, nl:"route / traject", fr:"un itinéraire"}, {t:15, nl:"reservatie maken", fr:"faire une réservation"}, {t:15, nl:"accommodatie", fr:"l'hébergement (m.)"}, {t:15, nl:"lokale specialiteiten", fr:"les spécialités locales"}, {t:15, nl:"historisch monument", fr:"le monument historique"}, {t:15, nl:"kasteel", fr:"le château"}, {t:15, nl:"wijngaard", fr:"le vignoble"}, {t:15, nl:"bekend / beroemd", fr:"connu / célèbre"}, {t:15, nl:"landschap", fr:"le paysage"}, {t:15, nl:"het zicht", fr:"la vue"}, {t:15, nl:"plantengroei", fr:"la végétation"}, {t:15, nl:"bos / pijnbomen", fr:"la forêt / les pins"}, {t:15, nl:"vallei / heuvel", fr:"une vallée / une colline"}, {t:15, nl:"berg / meer", fr:"une montagne / un lac"}, {t:15, nl:"stroom / rivier", fr:"un fleuve / une rivière"}, {t:15, nl:"zee / oceaan", fr:"la mer / l'océan"}, {t:15, nl:"kust / strand", fr:"la côte / la plage"}, {t:15, nl:"klif / rotswand", fr:"la falaise"}, {t:15, nl:"pittoresk", fr:"pittoresque"}, 
+    {t:15, nl:"stedelijk", fr:"urbain"}, {t:15, nl:"landelijk", fr:"rural"}, {t:15, nl:"kleurrijk", fr:"coloré"}, {t:15, nl:"heuvelachtig", fr:"vallonné"}
 ];
 
 let toutesLesSeries = [];
@@ -80,13 +89,18 @@ function genererSeries(numTheme) {
     if (!numTheme) return;
     const vocab = listeVocabulaire.filter(m => m.t == numTheme);
     toutesLesSeries = [];
+    
+    // Logica: 14 woorden per serie (9 nieuwe + 5 overlap)
     for (let i = 0; i < Math.ceil(vocab.length / 9); i++) {
-        toutesLesSeries.push(vocab.slice(i * 9, (i * 9) + 14));
+        let start = i * 9;
+        let serie = vocab.slice(start, start + 14);
+        if(serie.length > 0) toutesLesSeries.push(serie);
     }
+    
     toutesLesSeries.forEach((serie, i) => {
         const carte = document.createElement('div');
         carte.className = 'set-card';
-        carte.innerHTML = `<h3>Série ${i+1}</h3><button class="btn" onclick="demarrerSerie(${i})">🚀 Commencer</button><button class="btn btn-secondary" onclick="ouvrirEdition(${i})">📝 Liste</button>`;
+        carte.innerHTML = `<h3>Série ${i+1}</h3><p>${serie.length} mots</p><button class="btn" onclick="demarrerSerie(${i})">🚀 Commencer</button><button class="btn btn-secondary" onclick="ouvrirEdition(${i})">📝 Liste</button>`;
         grille.appendChild(carte);
     });
 }
@@ -116,13 +130,13 @@ function afficherResultats() {
     clearInterval(intervalle);
     document.getElementById('exercise').style.display = 'none';
     document.getElementById('result').style.display = 'flex';
-    document.getElementById('res-body').innerHTML = toutesLesSeries[indexSerieActuelle].map(m => `<tr><td>${m.nl}</td><td>${m.fr}</td></tr>`).join('');
+    document.getElementById('res-body').innerHTML = toutesLesSeries[indexSerieActuelle].map(m => `<tr><td>${m.nl}</td><td style="color:var(--primary); font-weight:bold;">${m.fr}</td></tr>`).join('');
 }
 
 function ouvrirEdition(idx) {
     indexSerieActuelle = idx;
     const corps = document.getElementById('edit-body');
-    corps.innerHTML = toutesLesSeries[idx].map(m => `<tr><td><input type="text" value="${m.nl}"></td><td><input type="text" value="${m.fr}"></td><td>✖</td></tr>`).join('');
+    corps.innerHTML = toutesLesSeries[idx].map(m => `<tr><td>${m.nl}</td><td>${m.fr}</td></tr>`).join('');
     document.getElementById('edit-screen').style.display = 'flex';
 }
 
@@ -132,5 +146,4 @@ function sauvegarderEtDemarrer() {
 }
 </script>
 </body>
-
 </html>
