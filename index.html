@@ -77,15 +77,31 @@ let indexSerieActuelle = 0, indexMotActuel = 0, tempsRestant = 8, intervalle;
 function genererSeries(numTheme) {
     const grille = document.getElementById('set-grid');
     grille.innerHTML = '';
+    
     if (!numTheme) return;
+    
     const vocab = listeVocabulaire.filter(m => m.t == numTheme);
+    if(vocab.length === 0) return;
+
     toutesLesSeries = [];
     
-    // Logica: 14 woorden per serie (9 nieuwe + 5 overlap)
-    for (let i = 0; i < Math.ceil(vocab.length / 9); i++) {
-        let start = i * 9;
-        let serie = vocab.slice(start, start + 14);
-        if(serie.length > 0) toutesLesSeries.push(serie);
+    // We maken exact 10 series aan
+    for (let i = 0; i < 10; i++) {
+        let serie = [];
+        
+        // Startpunt berekenen: 
+        // Serie 0 start op 0, Serie 1 start op 9 (dus 5 overlap met vorige set van 14)
+        // Serie 2 start op 18, etc.
+        let startIndex = i * 9; 
+
+        // Vul de serie met exact 14 woorden
+        for (let j = 0; j < 14; j++) {
+            // Gebruik modulo (%) om terug naar het begin van de lijst te gaan als we aan het einde komen
+            let wordIndex = (startIndex + j) % vocab.length;
+            serie.push(vocab[wordIndex]);
+        }
+        
+        toutesLesSeries.push(serie);
     }
     
     toutesLesSeries.forEach((serie, i) => {
