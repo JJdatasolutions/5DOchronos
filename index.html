@@ -147,7 +147,7 @@ function genererSeries(numTheme) {
     if (dataSauvegardee) {
         toutesLesSeries = JSON.parse(dataSauvegardee);
     } else {
-        let vocab = shuffleArray([...listeVocabulaire.filter(m => m.t == numTheme)]);
+        let vocab = seededShuffle([...listeVocabulaire.filter(m => m.t == numTheme)], 12345);
         if(vocab.length === 0) return;
 
         toutesLesSeries = [];
@@ -291,3 +291,4 @@ function sauvegarderEtDemarrer() {
 </script>
 </body>
 </html>
+
