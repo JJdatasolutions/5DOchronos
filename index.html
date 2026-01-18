@@ -128,13 +128,23 @@ const listeVocabulaire = [
 let toutesLesSeries = [];
 let indexSerieActuelle = 0, indexMotActuel = 0, tempsRestant = 8, intervalle;
 
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+// --- DIT IS DE NIEUWE FUNCTIE DIE JE MISTE ---
+function seededShuffle(array, seed) {
+    let m = array.length, t, i;
+    const random = () => {
+        var x = Math.sin(seed++) * 10000;
+        return x - Math.floor(x);
+    };
+
+    while (m) {
+        i = Math.floor(random() * m--);
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
     }
     return array;
 }
+// ---------------------------------------------
 
 function genererSeries(numTheme) {
     const grille = document.getElementById('set-grid');
@@ -147,6 +157,7 @@ function genererSeries(numTheme) {
     if (dataSauvegardee) {
         toutesLesSeries = JSON.parse(dataSauvegardee);
     } else {
+        // Hier gebruiken we nu seededShuffle die hierboven gedefinieerd staat
         let vocab = seededShuffle([...listeVocabulaire.filter(m => m.t == numTheme)], 12345);
         if(vocab.length === 0) return;
 
@@ -291,4 +302,5 @@ function sauvegarderEtDemarrer() {
 </script>
 </body>
 </html>
+
 
